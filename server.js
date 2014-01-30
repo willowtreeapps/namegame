@@ -8,7 +8,7 @@ var Q       = require('Q');
 
 //# Configure the app ------------------------------------------------------------
 var app = express();
-app.set('port', 2000);
+app.set('port', Number(process.env.PORT || 2000));
 app.set('views', __dirname + '/../views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
