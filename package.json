@@ -1,0 +1,19 @@
+{
+  "name": "faces",
+  "version": "0.0.0",
+  "description": "a game for faces!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "cheerio": "~0.13.1",
+    "request": "~2.33.0",
+    "lodash": "~2.4.1",
+    "express": "~3.3.1",
+    "jade": "~0.32.0",
+    "q": "~0.9.7"
+  }
+}

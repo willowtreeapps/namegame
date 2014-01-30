@@ -1,0 +1,100 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans';
+    font-size: 16px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.employee {
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    width: 20%;
+    cursor: pointer;
+    position: relative;
+    float: left;
+    padding: 5px;
+}
+
+.employee img {
+    width: 100%;
+}
+
+.employee span {
+    font-size: 16px;
+    -webkit-transition: all .2s linear;
+    transition: all .5s linear;
+    opacity: 1;
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+    top: 5px;
+
+    padding: 10px;
+    text-align: center;
+    color: white;
+    display: block;
+}
+
+
+.employee span h2 {
+    -webkit-transition: all .2s linear;
+    transition: all .5s linear;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+
+.hidden h2 {
+    bottom: -10px!important;
+}
+
+.hidden {
+    opacity: 0!important;
+}
+
+
+.wrong {
+    background-color: rgba(200,0,0,0.5);
+}
+
+.right {
+    background-color: rgba(0,200,0,0.5);
+}
+
+#question-wrapper {
+    text-align: center;
+    padding: 30px;
+}
+
+#question-wrapper h1 {
+    font-size: 36px;
+}
+
+.refresh {
+    width: 100%;
+    background-color: #bad;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    border: 0px solid #bad;
+    cursor: pointer;
+}
+
