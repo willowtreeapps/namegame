@@ -4,7 +4,6 @@ var http    = require('http');
 var request = require('request');
 var cheerio = require('cheerio');
 var _       = require('lodash');
-var Q       = require('Q');
 
 //# Configure the app ------------------------------------------------------------
 var app = express();
@@ -21,7 +20,7 @@ app.use(express.static(path.join(__dirname, './public')));
 //# Routes -----------------------------------------------------------------------
 
 app.get('/api/game', function(req, res) {
-    return requestPeople().then(function(data) {
+    return requestPeople(function(data) {
         return res.send(data);
     });
 });
@@ -31,8 +30,7 @@ http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-var requestPeople = function() {
-    var deferred = Q.defer();
+var requestPeople = function(fn) {
     var url = 'http://www.willowtreeapps.com/company/';
 
     request(url, function(err, resp, body) {
@@ -85,13 +83,11 @@ var requestPeople = function() {
         var selected = random[0];
         random = _.shuffle(random);
 
-        deferred.resolve({
+        fn({
             selected: selected,
             pool: random
         });
     });
-
-    return deferred.promise;
 }
 
 function cap(string)
