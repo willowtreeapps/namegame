@@ -18,10 +18,9 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, './public')));
 
 //# Routes -----------------------------------------------------------------------
-
 app.get('/api/game', function(req, res) {
-    return requestPeople(function(data) {
-        return res.send(data);
+    return res.send({
+        people: people
     });
 });
 
@@ -29,6 +28,12 @@ app.get('/api/game', function(req, res) {
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+var people = [];
+
+// Refresh our list of people every day
+setInterval(requestPeople, 1000*60*60*24);
+
 
 var requestPeople = function(fn) {
     var url = 'http://www.willowtreeapps.com/company/';
@@ -38,7 +43,7 @@ var requestPeople = function(fn) {
 
         var $ = cheerio.load(body);
 
-        var people = [];
+        people = [];
 
         $('.team_member').each(function() {
             var $el = $(this);
@@ -74,21 +79,23 @@ var requestPeople = function(fn) {
             var url = $el.find('img.attachment-full').attr('src');
 
             people.push({
-                name: names[0],
+                name: names[0].trim(),
                 url: url
             });
         });
 
-        var random = _(people).shuffle().first(5).value();
-        var selected = random[0];
-        random = _.shuffle(random);
+        //var random = _(people).shuffle().first(5).value();
+        //var selected = random[0];
+        //random = _.shuffle(random);
 
-        fn({
-            selected: selected,
-            pool: random
-        });
+        //fn({
+            //selected: selected,
+            //pool: people
+        //});
     });
 }
+
+requestPeople();
 
 function cap(string)
 {
