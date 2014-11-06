@@ -4,25 +4,30 @@ var http    = require('http');
 var request = require('request');
 var cheerio = require('cheerio');
 var _       = require('lodash');
+var cors    = require('cors');
 
 //# Configure the app ------------------------------------------------------------
 var app = express();
 app.set('port', Number(process.env.PORT || 2000));
-app.set('views', __dirname + '/../views');
-app.set('view engine', 'jade');
-app.use(express.favicon());
+//app.set('views', __dirname + '/../views');
+//app.set('view engine', 'jade');
+//app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, './public')));
+app.use(cors());
+//app.use(express.static(path.join(__dirname, './public')));
 
 //# Routes -----------------------------------------------------------------------
 app.get('/api/game', function(req, res) {
-    return res.send({
-        people: people
-    });
+    return res.send(people);
 });
+
+app.get('/api/names', function(req, res) {
+    return res.send(_.pluck(people, 'name'));
+});
+
 
 //# Kick off the server ----------------------------------------------------------
 http.createServer(app).listen(app.get('port'), function() {
