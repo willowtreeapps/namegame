@@ -24,6 +24,10 @@ app.get('/api/game', function(req, res) {
     return res.send(people);
 });
 
+app.get('/', function(req, res) {
+    return res.send(people);
+});
+
 app.get('/api/names', function(req, res) {
     return res.send(_.pluck(people, 'name'));
 });
