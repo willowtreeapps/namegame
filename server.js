@@ -48,9 +48,6 @@ http.createServer(app).listen(app.get('port'), function() {
 
 var people = [];
 
-// Refresh our list of people every day
-setInterval(requestPeople, 1000*60*60*24);
-
 
 var requestPeople = function(fn) {
     var url = 'http://www.willowtreeapps.com/company/';
@@ -114,7 +111,9 @@ var requestPeople = function(fn) {
 
 requestPeople();
 
-function cap(string)
-{
+function cap(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// Refresh our list of people every day
+setInterval(requestPeople, 1000*60*60*24);
