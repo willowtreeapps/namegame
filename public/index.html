@@ -57,14 +57,14 @@ var Game = React.createClass({
 
     render: function() {
         var faces = this.props.people.map(function(p) {
-            return <Face key={Math.random()} url={p.url} name={p.name} selected={p.selected}/>;
+            return <Face key={Math.random()} url={p.headshot.url} name={p.firstName + ' ' + p.lastName} selected={p.selected}/>;
         });
 
-        var name = _.find(this.props.people, {selected: true}).name;
+        var selectedFace = _.find(this.props.people, {selected: true});
 
         return (
             <div>
-                <h1 id="question-wrapper">Who is {name}?</h1>
+                <h1 id="question-wrapper">Who is {selectedFace.firstName + ' ' + selectedFace.lastName}?</h1>
                 <div>{faces}</div>
             </div>
         );
@@ -88,7 +88,7 @@ var App = React.createClass({
         var rand = _(people)
                         .filter(function(p) {
                             var reg = new RegExp('^'+prefix, 'i');
-                            return reg.test(p.name);
+                            return reg.test(p.firstName);
                         })
                         .each(function(p) {
                             p.selected = false;
@@ -123,19 +123,6 @@ var App = React.createClass({
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 var render = function () {
     React.renderComponent(
         <App people={people}/>,
@@ -149,17 +136,4 @@ $.get('/api/game').then(function(data) {
     render();
 });
 
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-

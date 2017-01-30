@@ -36,68 +36,17 @@ setInterval(requestPeople, 1000*60*60*24);
 
 
 var requestPeople = function(fn) {
-    var url = 'http://www.willowtreeapps.com/company/';
+    var url = 'https://willowtreeapps.com/api/v1.0/profiles';
 
-    request(url, function(err, resp, body) {
+    request(url, { json: true }, function(err, resp, body) {
         if (err) { throw err; }
-
-        var $ = cheerio.load(body);
 
         people = [];
 
-        $('.team_member').each(function() {
-            var $el = $(this);
-
-            var names = []
-
-            names.push($el.find('.info h3').text());
-
-            names.push($el.find('img.attachment-full')
-                            .attr('alt')
-                            .split('_')
-                            .slice(1)
-                            .map(cap)
-                            .join(' '));
-
-            names.push($el.find('img.attachment-full')
-                            .attr('src')
-                            .split('/')
-                            .pop()
-                            .replace('.jpg', '')
-                            .replace('.png', '')
-                            .replace(/[0-9]/, '')
-                            .replace(/headshot/i, '')
-                            .replace('  ', ' ')
-                            .split('_')
-                            .map(cap)
-                            .join(' '));
-
-            names = _.sortBy(names, function(s) {
-                return -s.length;
-            });
-
-            var url = $el.find('img.attachment-full').attr('src');
-
-            people.push({
-                name: names[0].trim(),
-                url: url
-            });
-        });
-
-        //var random = _(people).shuffle().first(5).value();
-        //var selected = random[0];
-        //random = _.shuffle(random);
-
-        //fn({
-            //selected: selected,
-            //pool: people
-        //});
+        if(body && body.items){
+          people = body.items;
+        }
     });
 }
 
 requestPeople();
-
-function cap(string)
-{
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
