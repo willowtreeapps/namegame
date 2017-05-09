@@ -1,9 +1,10 @@
 var express = require('express');
-var path    = require('path');
-var http    = require('http');
+var path = require('path');
+var http = require('http');
 var request = require('request');
 var cheerio = require('cheerio');
-var _       = require('lodash');
+var _ = require('lodash');
+var cors = require('cors')
 
 //# Configure the app ------------------------------------------------------------
 var app = express();
@@ -18,7 +19,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, './public')));
 
 //# Routes -----------------------------------------------------------------------
-app.get('/api/game', function(req, res) {
+app.get('/api/game', cors(), function(req, res) {
     return res.send({
         people: people
     });
@@ -32,7 +33,7 @@ http.createServer(app).listen(app.get('port'), function() {
 var people = [];
 
 // Refresh our list of people every day
-setInterval(requestPeople, 1000*60*60*24);
+setInterval(requestPeople, 1000 * 60 * 60 * 24);
 
 
 var requestPeople = function(fn) {
@@ -43,8 +44,8 @@ var requestPeople = function(fn) {
 
         people = [];
 
-        if(body && body.items){
-          people = body.items;
+        if (body && body.items) {
+            people = body.items;
         }
     });
 }
