@@ -44,8 +44,8 @@ var requestPeople = function(fn) {
 
         people = [];
 
-        if (body && body.items) {
-            people = body.items;
+        if (body) {
+            people = body;
         }
     });
 }
